@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:macro name="collar" params="parent">
+    <link name="${parent}__COLLAR">
+      <visual>
+        <origin xyz="0 0.0004965 -0.0065" rpy="${PI/2.0} ${PI} ${PI}" />
+        <geometry>
+          <mesh filename="package://snake_control/meshes/collar.dae"/>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="${parent}__COLLAR_JOINT" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${parent}__COLLAR"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="just_collar" params="name">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0.0004965 -0.0065" rpy="${PI/2.0} ${PI} ${PI}" />
+        <geometry>
+          <mesh filename="package://snake_control/meshes/collar.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.0065" rpy="0 0 0" />
+        <geometry>
+        <cylinder radius="${0.0335}" length="${0.0175}" />
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+</robot>

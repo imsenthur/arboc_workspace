@@ -1,0 +1,20 @@
+---
+# list of module names corresponding to each leg.
+#
+#  front
+#  S_00
+#    .
+#    .
+#    .
+#  S_15
+#  back
+#
+module_map:
+  S_00: link_1
+  S_01: link_2
+  S_02: link_3
+  S_03: link_4
+  S_04: link_5
+  S_05: link_6
+  S_06: link_7
+...

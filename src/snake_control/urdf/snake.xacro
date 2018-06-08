@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="snake">
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:include filename="./module_common.xacro"/>
+  <xacro:include filename="./rotary_module.xacro"/>
+  
+
+  <!-- ************************* Arboc definition ************************* -->
+
+  <xacro:property name="S_00" value="link_1" />
+  <xacro:property name="S_01" value="link_2" />
+  <xacro:property name="S_02" value="link_3" />
+  <xacro:property name="S_03" value="link_4" />
+  <xacro:property name="S_04" value="link_5" />
+  <xacro:property name="S_05" value="link_6" />
+  <xacro:property name="S_06" value="link_7" />
+
+  <link name="kdl_dummy_root" />
+  <joint name="kdl_dummy_root_to_base" type="fixed">
+    <parent link="kdl_dummy_root"/>
+    <child link="base"/>
+    <origin xyz="0 0 0" rpy="0 ${-PI/2.0} 0"/>
+  </joint>
+
+  <link name="base" />
+  <joint name="head__OUTPUT_INTERFACE" type="fixed">
+    <parent link="base"/>
+    <child link="${S_00}__INPUT_INTERFACE"/>
+  </joint>
+
+  <xacro:include filename="./snake.gazebo" />
+  <xacro:rotary_module joint="${S_00}" child="${S_01}"/>
+  <xacro:rotary_module joint="${S_01}" child="${S_02}"/>
+  <xacro:rotary_module joint="${S_02}" child="${S_03}"/>
+  <xacro:rotary_module joint="${S_03}" child="${S_04}"/>
+  <xacro:rotary_module joint="${S_04}" child="${S_05}"/>
+  <xacro:rotary_module joint="${S_05}" child="${S_06}"/>
+  <xacro:just_collar name="${S_06}__INPUT_INTERFACE"/>
+</robot>
