@@ -69,10 +69,8 @@
        	<rpyOffset>0 0 0</rpyOffset> 
       </plugin> 
     </gazebo>
-
     <gazebo>
       <plugin name="${mod}_buoyancy" filename="libBuoyancyPlugin.so">
-        <!-- a viscous liquid -->
         <fluid_density>2000</fluid_density>
         <link name="${mod}__INPUT_INTERFACE">
           <center_of_volume>1 2 3</center_of_volume>
@@ -80,7 +78,6 @@
         </link>
       </plugin>
     </gazebo>
-
   </xacro:macro>
 
 
@@ -101,9 +98,9 @@
   <xacro:modSensors mod="${S_03}"/>
   <xacro:modSensors mod="${S_04}"/>
   <xacro:modSensors mod="${S_05}"/>
-
-  <!-->
   <xacro:modSensors mod="${S_06}"/>
+  <!-->
+
   <xacro:modSensors mod="${S_07}"/>
   <-->
 

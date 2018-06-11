@@ -46,7 +46,8 @@ class JointCmds:
         d = 1
 
         for i, jnt in enumerate(self.joints_list) :
-            self.jnt_cmd_dict[jnt] = A*np.sin( 2.0*np.pi*(d*self.t + (i%2)*TPO + i*spat_freq) )
+            if i==0 or i==5:
+            	self.jnt_cmd_dict[jnt] = A*np.sin( 2.0*np.pi*(d*self.t + (i%2)*TPO + i*spat_freq) )
                 
         return self.jnt_cmd_dict
 
