@@ -24,7 +24,7 @@
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-        args="-z 0.08 -urdf -model robot -param robot_description" respawn="false" output="screen" />
+        args="-z 0.03 -urdf -model robot -param robot_description" respawn="false" output="screen" />
 
 
   <arg name="camera" default="false" />
@@ -39,7 +39,7 @@
   <rosparam file="$(find snake_control)/config/controllers.yaml" command="load"/>
 
   <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/snake" args="joint_state_controller S_00_eff_pos_controller S_01_eff_pos_controller S_02_eff_pos_controller S_03_eff_pos_controller S_04_eff_pos_controller S_05_eff_pos_controller"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/snake" args="joint_state_controller link_01_pos_controller link_02_pos_controller link_03_pos_controller link_04_pos_controller link_05_pos_controller link_06_pos_controller link_07_pos_controller link_08_pos_controller"/>
 
   <!-- convert joint states to TF transforms for rviz -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">

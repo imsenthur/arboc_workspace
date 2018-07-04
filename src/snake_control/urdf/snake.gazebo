@@ -5,25 +5,21 @@
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/snake</robotNamespace>
+      <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
     </plugin>
   </gazebo>
 
+  <!-- TODO: fix colors; Gazebo groups modules so everything comes out red -->
+  <!-- <xacro:macro name="gazeboColor" params="leg mod1 mod2 mod3"> -->
   <xacro:macro name="gazeboColor" params="mod">
-    <gazebo reference="${mod}">
+    <gazebo reference="${mod}__OUTPUT_BODY">
       <mu1>0.9</mu1>
       <mu2>0.9</mu2>
-      <material>Gazebo/Turquoise</material>
+      <material>Gazebo/Chrome</material>
       <static>false</static>
       <selfCollide>true</selfCollide>
     </gazebo>
     <gazebo reference="${mod}__INPUT_INTERFACE">
-      <mu1>0.9</mu1>
-      <mu2>0.9</mu2>      
-      <material>Gazebo/FlatBlack</material>
-      <static>false</static>
-      <selfCollide>true</selfCollide>
-    </gazebo>
-    <gazebo reference="base">
       <mu1>0.9</mu1>
       <mu2>0.9</mu2>      
       <material>Gazebo/FlatBlack</material>
@@ -36,7 +32,14 @@
       <material>Gazebo/Chrome</material>
       <static>false</static>
       <selfCollide>true</selfCollide>
-    </gazebo>        
+    </gazebo>    
+    <gazebo reference="${mod}__OUTPUT_BODY__COLLAR_END">
+      <mu1>0.9</mu1>
+      <mu2>0.9</mu2>     
+      <material>Gazebo/Chrome</material>
+      <static>false</static>
+      <selfCollide>true</selfCollide>
+    </gazebo>     
   </xacro:macro>
 
   <xacro:macro name="modSensors" params="mod">
@@ -56,28 +59,19 @@
     <!--   </plugin> -->
     <!-- </gazebo> -->
 
-     <!--imu sensor plugin -->
-    <gazebo> 
-      <plugin name="${mod}_ros_imu_sensor" filename="libgazebo_ros_imu.so">
-       	<robotNamespace>/snake</robotNamespace> 
-       	<updateRate>200.0</updateRate> 
-       	<gaussianNoise>0.005</gaussianNoise> -->
-       	<topicName>sensors/${mod}/imu</topicName> 
-       	<serviceName>sensors/${mod}/imu</serviceName> 
-       	<bodyName>${mod}__INPUT_INTERFACE</bodyName> 
-       	<xyzOffset>0 0 0</xyzOffset> 
-       	<rpyOffset>0 0 0</rpyOffset> 
-      </plugin> 
-    </gazebo>
-    <gazebo>
-      <plugin name="${mod}_buoyancy" filename="libBuoyancyPlugin.so">
-        <fluid_density>2000</fluid_density>
-        <link name="${mod}__INPUT_INTERFACE">
-          <center_of_volume>1 2 3</center_of_volume>
-          <volume>0.0002114319</volume>
-        </link>
-      </plugin>
-    </gazebo>
+    <!-- imu sensor plugin -->
+    <!-- <gazebo> -->
+    <!--   <plugin name="${mod}_ros_imu_sensor" filename="libgazebo_ros_imu.so"> -->
+    <!-- 	<robotNamespace>/snake</robotNamespace> -->
+    <!-- 	<updateRate>200.0</updateRate> -->
+    <!-- 	<gaussianNoise>0.005</gaussianNoise> -->
+    <!-- 	<topicName>sensors/${mod}/imu</topicName> -->
+    <!-- 	<serviceName>sensors/${mod}/imu</serviceName> -->
+    <!-- 	<bodyName>${mod}__OUTPUT_BODY</bodyName> -->
+    <!-- 	<xyzOffset>0 0 0</xyzOffset> -->
+    <!-- 	<rpyOffset>0 0 0</rpyOffset> -->
+    <!--   </plugin> -->
+    <!-- </gazebo> -->
   </xacro:macro>
 
 
@@ -88,9 +82,7 @@
   <xacro:gazeboColor mod="${S_04}"/>
   <xacro:gazeboColor mod="${S_05}"/>
   <xacro:gazeboColor mod="${S_06}"/>
-  <!-->
   <xacro:gazeboColor mod="${S_07}"/>
-  <-->
 
   <xacro:modSensors mod="${S_00}"/>
   <xacro:modSensors mod="${S_01}"/>
@@ -99,9 +91,6 @@
   <xacro:modSensors mod="${S_04}"/>
   <xacro:modSensors mod="${S_05}"/>
   <xacro:modSensors mod="${S_06}"/>
-  <!-->
-
   <xacro:modSensors mod="${S_07}"/>
-  <-->
 
 </robot>

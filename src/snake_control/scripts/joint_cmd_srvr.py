@@ -11,7 +11,7 @@ import numpy as np
 class JointCmds:
     """ The class provides a dictionary mapping joints to command values.
     """
-    def __init__( self, yaml_file_name='arboc_ws/src/snake_control/config/modules.yaml' ) :
+    def __init__( self, yaml_file_name='snake_ws/src/snake_control/config/modules.yaml' ) :
 
         import yaml
 
@@ -73,11 +73,16 @@ class JointCmdSrvr :
 
         self.pub={}
         ns_str='/snake'
-        cont_str = 'eff_pos_controller'
+        cont_str = 'pos_controller'
         self.joint_cmds = JointCmds()
         
         for jnt in self.joint_cmds.modules_dict.keys():
-            self.pub[jnt] = rospy.Publisher( ns_str + '/' + jnt + '_'
+            leg_str='link_'
+            if i < 10 :
+                leg_str += '0' + str(i)
+            else :
+                leg_str += str(i)
+            self.pub[jnt] = rospy.Publisher( ns_str + '/' + leg_str + '_'
                                              + cont_str + '/command',
                                              Float64, queue_size=10 )
         

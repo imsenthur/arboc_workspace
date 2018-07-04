@@ -2,11 +2,10 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931" />
-  <xacro:property name="mass_2" value="1.575" />
+  <xacro:property name="mass_2" value="0.093195" />
   <xacro:property name="cyl_r" value="0.0335" />
   <xacro:property name="cyl_h_in" value="0.03" />
   <xacro:property name="cyl_h_out" value="0.03" />
-  <xacro:property name="cyl_h_end" value="0.0765" />
 
   <xacro:macro name="rotary_module_in" params="name">
     <link name="${name}">
@@ -15,6 +14,7 @@
         <geometry>
           <mesh filename="package://snake_control/meshes/rotary_module_in.dae"/>
         </geometry>
+        <xacro:red_material/>
       </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -60,12 +60,14 @@
         <origin xyz="0 0.00225 0.0179" rpy="${-PI/2.0} 0 0" />
         <geometry>
           <mesh filename="package://snake_control/meshes/rotary_module_out.dae"/>
+	  <!-- <cylinder radius=".0025" length=".1" /> -->
         </geometry>
+        <xacro:red_material/>
       </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-	    <cylinder radius="${cyl_r}" length="${cyl_h_out}" />
+	<cylinder radius="${cyl_r}" length="${cyl_h_out}" />
       </geometry>
     </collision> 
     <inertial>
@@ -84,13 +86,16 @@
     </joint>
   </xacro:macro>
 
+  <!-- NOTE: joint must match the name of the module -->
   <xacro:macro name="rotary_module" params="joint child">
-    <!-- fixed joint + collar -->
+    <!-- first half of joint + collar -->
     <xacro:rotary_module_in name="${joint}__INPUT_INTERFACE"/>
     <xacro:collar parent="${joint}__INPUT_INTERFACE"/>
-    <!-- rotary joint -->
-    <xacro:rotary_module_joint parent="${joint}__INPUT_INTERFACE" name="${joint}_joint" child="${joint}"/>
-    <xacro:rotary_module_out name="${joint}"/>
-    <xacro:rotary_module_out_interface parent="${joint}" name="${joint}__OUTPUT_INTERFACE" child="${child}__INPUT_INTERFACE"/>
+    <!-- actual rotary joint component: -->
+    <xacro:rotary_module_joint parent="${joint}__INPUT_INTERFACE" name="${joint}" child="${joint}__OUTPUT_BODY"/>
+    <!-- second half of joint -->
+    <xacro:rotary_module_out name="${joint}__OUTPUT_BODY"/>
+    <!-- 90* turn at interface: -->
+    <xacro:rotary_module_out_interface parent="${joint}__OUTPUT_BODY" name="${joint}__OUTPUT_INTERFACE" child="${child}__INPUT_INTERFACE"/>
   </xacro:macro>
 </robot>

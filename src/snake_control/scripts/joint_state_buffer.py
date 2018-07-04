@@ -24,7 +24,7 @@ class BufferedJointTraj:
         self.max_its = 1002
         self.dt = .01
         self.resp = []
-        self.sub_once = rospy.Subscriber('/snake/S_00_eff_pos_controller/command', \
+        self.sub_once = rospy.Subscriber('/snake/link_01_pos_controller/command', \
                                          Float64, self.onetime_callback)
         rospy.Subscriber('/snake/joint_states', JointState, self.joint_states_callback)
         s = rospy.Service('/snake/get_joint_traj', GetJointTrajectory, self.return_joint_traj)
@@ -73,7 +73,7 @@ class BufferedJointTraj:
             
             self.its = 0
             self.start = 0
-            self.sub_once = rospy.Subscriber('/snake/S_00_eff_pos_controller/command', \
+            self.sub_once = rospy.Subscriber('/snake/link_01_pos_controller/command', \
                                              Float64, self.onetime_callback)
 
 

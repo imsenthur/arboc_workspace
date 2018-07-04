@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "snake_control")
 set(snake_control_VERSION "0.0.1")
-set(snake_control_MAINTAINER "holy_cow <imsenthur@gmail.com>")
+set(snake_control_MAINTAINER "Alex Ansari <alex.r.ansari@gmail.com>")
 set(snake_control_PACKAGE_FORMAT "1")
 set(snake_control_BUILD_DEPENDS "controller_manager" "hardware_interface" "roscpp" "rospy" "message_generation" "std_msgs" "trajectory_msgs")
 set(snake_control_BUILD_EXPORT_DEPENDS "controller_manager" "hardware_interface" "roscpp" "rospy" "std_msgs" "trajectory_msgs" "message_runtime")
