@@ -1,5 +1,5 @@
 # arboc_workspace
-A ROS workspace with packages required for simulated control of the hyper redundant snake robot [aka Arboc]. 
+A ROS workspace with packages required for simulated control of a hyper redundant snake robot [Arboc]. 
 
 Tested and developed with __ROS-Kinetic__ and __ubuntu 16.04__.
 
